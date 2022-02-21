@@ -30,7 +30,7 @@ const {checkUsernameFree, checkUsernameExists, checkPasswordLength} = require('.
  */
 router.post('/register', checkUsernameFree, checkPasswordLength, async (req, res, next) => {
   const user = req.user;
-  const hash = bcrypt.hashSync(user.password, 14);
+  const hash = bcrypt.hashSync(user.password, 12);
   user.password = hash;
   let result = await Users.add(user);
   res.status(201).json(result);
