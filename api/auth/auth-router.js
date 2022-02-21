@@ -79,7 +79,7 @@ router.post('/login', checkUsernameExists, (req, res, next) => {
   }
  */
 router.get('/logout', (req, res, next) => {
-  if(req.session){
+  if(req.session.user){
     req.session.destroy(err => {
       if(err) {
         next({message: 'error while logging out'});
