@@ -25,9 +25,13 @@ function restricted(req, res, next) {
   }
 */
 function checkUsernameFree(req, res, next) {
-  if(Users.findBy({username: req.user.username}).first() != null) {
+  if(Users.findBy({username: req.body.username}).first() != null) {
     next({status: 422, message: 'Username taken'});
   } else {
+    req.user = {
+      username: req.body.username.trim(),
+      password: req.body.password.trim(),
+    };
     next();
   }
 }
@@ -41,7 +45,7 @@ function checkUsernameFree(req, res, next) {
   }
 */
 async function checkUsernameExists(req, res, next) {
-  const user = await Users.findBy({username: req.user.username}).first();
+  const user = await Users.findBy({username: req.body.username}).first();
   if(user == null) {
     next({status: 401, message: 'Invalid credentials'});
   } else {
