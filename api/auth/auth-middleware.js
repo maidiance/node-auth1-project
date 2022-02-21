@@ -30,6 +30,7 @@ async function checkUsernameFree(req, res, next) {
     console.log(result);
     next({status: 422, message: 'Username taken'});
   } else {
+    console.log(result);
     req.user = {
       username: req.body.username.trim(),
       password: req.body.password.trim(),
